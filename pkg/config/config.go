@@ -13,6 +13,9 @@ type Config struct {
 		Host string `yaml:host`
 		Port int    `yaml:port`
 	} `yaml:server`
+	Url struct {
+		CDN  string `yaml:"cdn"`
+	} `yaml:"url"`
 }
 
 // Get - Config initializer

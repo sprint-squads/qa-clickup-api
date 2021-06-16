@@ -19,6 +19,12 @@ func New(app application.Application) (*gin.Engine, error) {
 
 		v1.GET("/welcome", handler.Welcome)
 
+		clickup := v1.Group("/clickup")
+		{
+			clickup.GET("/", handler.GetTags)
+			clickup.POST("/", handler.CreateTask)
+		}
+
 	}
 
 	return router, nil
