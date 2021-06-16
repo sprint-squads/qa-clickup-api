@@ -9,33 +9,35 @@ import (
 )
 
 // CreateClickUpTask - creates task using clickup api
-func (s *Services) CreateTask(body model.ClickUpTask) (response *model.BaseResponse, err error) {
+func (s *Services) CreateTask(body model.ClickUpTask) (response model.BaseResponse, err error) {
 	url := fmt.Sprintf("%v/list/%v/task", s.Config.Clickup.Url, s.Config.Clickup.ListId)
 	headers := make(map[string]string)
-	headers["Authorization"] = "3851228_2087f0167d551169256f2f86e8b21fec4bc90075"
+	headers["Authorization"] = s.Config.Clickup.Token
 
 	bodyByte, err := json.Marshal(body)
 	if err != nil {
 		return
 	}
 
-	_, responseBody, err := http_v2.RequestJSON(http.MethodPost, url, bodyByte, headers, &response)
+	httpStatus, _, err := http_v2.RequestJSON(http.MethodPost, url, bodyByte, headers, nil)
 	if err != nil {
 		return
 	}
-	fmt.Println("responseBody", string(responseBody))
+
+	response.HTTPStatus = httpStatus
+	response.Message = "task created"
 	return
 }
 
 func (s *Services) GetTags() (response *model.TagsList, err error) {
 	url := fmt.Sprintf("%v/space/%v/tag", s.Config.Clickup.Url, s.Config.Clickup.SpaceId )
 	headers := make(map[string]string)
-	headers["Authorization"] = "3851228_2087f0167d551169256f2f86e8b21fec4bc90075"
+	headers["Authorization"] = s.Config.Clickup.Token
 
-	_, _, err = http_v2.RequestJSON(http.MethodGet, url, nil, headers, &response)
+	httpStatus, _, err := http_v2.RequestJSON(http.MethodGet, url, nil, headers, &response)
 	if err != nil {
 		return
 	}
-	response.HTTPStatus = 200
+	response.HTTPStatus = httpStatus
 	return
 }

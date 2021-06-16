@@ -24,7 +24,6 @@ func NewServer() (*Server, error) {
 		return nil, err
 	}
 
-	fmt.Println("host", app.Config.Server.Host, "port", app.Config.Server.Port)
 	router, err := New(*app)
 	if err != nil {
 		return nil, err

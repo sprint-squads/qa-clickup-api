@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"github.com/Sprint-Squads/qa-clickup-api/pkg/model"
 	"github.com/gin-gonic/gin"
 	"strings"
@@ -14,7 +13,6 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 	err := ctx.Bind(&taskRequest)
 	if err != nil {
 		ctx.JSON(400, err)
-		fmt.Println("err: ", err)
 		return
 	}
 
@@ -49,11 +47,8 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		Name:                      taskRequest.Title,
 		Description:               taskRequest.Description,
 		Assignees:                 []int{5723639},
-		Status:                    "Open",
 		Priority:				   taskRequest.Priority,
 		Tags:                      tags,
-		NotifyAll:                 true,
-		CheckRequiredCustomFields: true,
 	}
 
 	res, err := h.Manager.CreateTask(clickUpTask)
@@ -62,7 +57,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(201, res)
+	ctx.JSON(res.HTTPStatus, res)
 }
 
 func (h *Handler) GetTags(ctx *gin.Context) {

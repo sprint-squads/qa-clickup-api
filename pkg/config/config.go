@@ -14,9 +14,10 @@ type Config struct {
 		Port int    `env:"HTTP_PORT"`
 	}
 	Clickup struct {
-		Url  string `env:"CLICKUP_URL"`
-		SpaceId  string `env:"SPACE_ID"`
-		ListId  string `env:"LIST_ID"`
+		Url     string `env:"CLICKUP_URL"`
+		SpaceId string `env:"CLICKUP_SPACE_ID"`
+		ListId  string `env:"CLICKUP_LIST_ID"`
+		Token   string `env:"CLICKUP_ACCESS_TOKEN"`
 	}
 }
 
