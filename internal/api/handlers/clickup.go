@@ -17,31 +17,27 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 	}
 
 	tags := strings.Split(taskRequest.Tags, " ")
-	//form, err := ctx.MultipartForm()
-	//if err != nil {
-	//	ctx.JSON(400, err)
-	//	return
-	//}
+	form, err := ctx.MultipartForm()
+	if err != nil {
+		ctx.JSON(400, err)
+		return
+	}
 
 	//taskRequest.Description = fmt.Sprintf("Email: %v\n\n%v\n\n", taskRequest.Email, taskRequest.Description)
-	//if form == nil || form.File == nil || len(form.File) == 0 {
-	//	// skip uploading file
-	//} else {
-	//	filesList := form.File
-	//	if len(filesList) > 0 {
-	//		file := form.File["file"][0]
-	//
-	//		response, errResp := h.Manager.UploadFileDirect(taskRequest.FolderName, file)
-	//		if errResp != nil {
-	//			ctx.JSON(400, err)
-	//			return
-	//		}
-	//
-	//		taskRequest.Description += fmt.Sprintf("Attachment:%v", response.Data)
-	//	}
-	//}
+	if form == nil || form.File == nil || len(form.File) == 0 {
+		// skip uploading file
+	} else {
+		filesList := form.File
+		if len(filesList) > 0 {
+			file := form.File["file"][0]
 
-	//now := time.Now()
+			errResp := h.Manager.UploadFile(file)
+			if errResp != nil {
+				ctx.JSON(400, err)
+				return
+			}
+		}
+	}
 
 	clickUpTask := model.ClickUpTask{
 		Name:                      taskRequest.Title,

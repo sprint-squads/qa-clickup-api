@@ -19,6 +19,13 @@ type Config struct {
 		ListId  string `env:"CLICKUP_LIST_ID"`
 		Token   string `env:"CLICKUP_ACCESS_TOKEN"`
 	}
+	Minio struct {
+		Url        string `env:"MINIO_URL"`
+		AccessKey  string `env:"MINIO_ACCESS_KEY"`
+		SecretKey  string `env:"MINIO_SECRET_KEY"`
+		UseSSL     bool   `env:"MINIO_USE_SSL"`
+		BucketName string `env:"MINIO_BUCKET_NAME"`
+	}
 }
 
 // Get - Config initializer
