@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Sprint-Squads/qa-clickup-api/pkg/model"
 	"github.com/gin-gonic/gin"
+	"strings"
 )
 
 func (h *Handler) CreateTask(ctx *gin.Context) {
@@ -17,6 +18,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		return
 	}
 
+	tags := strings.Split(taskRequest.Tags, " ")
 	//form, err := ctx.MultipartForm()
 	//if err != nil {
 	//	ctx.JSON(400, err)
@@ -49,7 +51,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		Assignees:                 []int{5723639},
 		Status:                    "Open",
 		Priority:				   taskRequest.Priority,
-		Tags:                      taskRequest.Tags,
+		Tags:                      tags,
 		NotifyAll:                 true,
 		CheckRequiredCustomFields: true,
 	}
@@ -60,7 +62,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(res.HTTPStatus, res)
+	ctx.JSON(201, res)
 }
 
 func (h *Handler) GetTags(ctx *gin.Context) {

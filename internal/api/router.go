@@ -21,8 +21,8 @@ func New(app application.Application) (*gin.Engine, error) {
 
 		clickup := v1.Group("/clickup")
 		{
-			clickup.GET("/", handler.GetTags)
-			clickup.POST("/", handler.CreateTask)
+			clickup.GET("/tags", handler.GetTags)
+			clickup.POST("/create-issue", handler.CreateTask)
 		}
 
 	}

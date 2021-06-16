@@ -9,12 +9,14 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"os"
 )
 
 // CreateClickUpTask - creates task using clickup api
 func (s *Services) CreateTask(body model.ClickUpTask) (response *model.BaseResponse, err error) {
-	url := "https://api.clickup.com/api/v2/list/28878054/task"
-
+	clickupUrl := os.Getenv("CLICKUP_URL")
+	listId := os.Getenv("LIST_ID")
+	url := fmt.Sprintf("%v/list/%v/task", clickupUrl, listId)
 	headers := make(map[string]string)
 	headers["Authorization"] = "3851228_2087f0167d551169256f2f86e8b21fec4bc90075"
 
@@ -23,11 +25,11 @@ func (s *Services) CreateTask(body model.ClickUpTask) (response *model.BaseRespo
 		return
 	}
 
-	_, _, err = http_v2.RequestJSON(http.MethodPost, url, bodyByte, headers, &response)
+	_, responseBody, err := http_v2.RequestJSON(http.MethodPost, url, bodyByte, headers, &response)
 	if err != nil {
 		return
 	}
-	response.HTTPStatus = 201
+	fmt.Println("responseBody", string(responseBody))
 	return
 }
 
@@ -66,7 +68,10 @@ func (s *Services) UploadFileDirect(folderName string, file *multipart.FileHeade
 }
 
 func (s *Services) GetTags() (response *model.TagsList, err error) {
-	url := "https://api.clickup.com/api/v2/space/3829654/tag"
+	clickupUrl := os.Getenv("CLICKUP_URL")
+	spaceId := os.Getenv("SPACE_ID")
+
+	url := fmt.Sprintf("%v/space/%v/tag", clickupUrl, spaceId )
 	headers := make(map[string]string)
 	headers["Authorization"] = "3851228_2087f0167d551169256f2f86e8b21fec4bc90075"
 
