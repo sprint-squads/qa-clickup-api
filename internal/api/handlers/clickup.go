@@ -56,7 +56,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		CheckRequiredCustomFields: true,
 	}
 
-	res, err := h.App.Services.CreateTask(clickUpTask)
+	res, err := h.Manager.CreateTask(clickUpTask)
 	if err != nil {
 		ctx.JSON(400, err)
 		return
