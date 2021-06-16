@@ -28,12 +28,6 @@ type ClickUpTask struct {
 	CustomFields              []ClickUpTaskCustomField `json:"custom_fields"`
 }
 
-type ClickUpTaskResponse struct {
-	Id           int    `json:"id"`
-	Name         string `json:"name"`
-	Description  string `json:"description"`
-}
-
 type ClickUpTaskCustomField struct {
 	ID    string `json:"id"`
 	Value string `json:"value"`

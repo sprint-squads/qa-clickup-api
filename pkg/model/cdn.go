@@ -1,9 +1,5 @@
 package model
 
-//type CDNUploadResponse struct {
-//	Data models.File `json:"data"`
-//}
-
 type CDNUploadDirectResponse struct {
 	BaseResponse
 	Data string `json:"data"`
