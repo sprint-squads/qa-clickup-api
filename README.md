@@ -1,20 +1,35 @@
 # qa-clickup-api
 REST api for creating Issues in clickup.com
 
-routes:
-1. Get tags. http://84.252.128.7:4000/v1/clickup/tags
+**API URL**: ```http://84.252.128.7:4000/v1/```
 
-header:
-Authorization: 3851228_2087f0167d551169256f2f86e8b21fec4bc90075
+# Routes
 
-2. Create issues. http://84.252.128.7:4000/v1/clickup/issues
+## List of tags
 
-header:
-Authorization: 3851228_2087f0167d551169256f2f86e8b21fec4bc90075
+### Request
 
-body (multipart form): 
-title string;
-description string;
-priority int;
-tags string (splitted by space);
-file file;
+```GET /clickup/tags```
+
+### Response
+
+```json
+{}
+```
+
+## Create Issue
+
+### Request
+
+```POST /clickup/issues```
+
+**Body**
+
+```json
+```
+
+### Response
+
+```json
+{}
+```
