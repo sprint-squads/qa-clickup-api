@@ -1,9 +1,9 @@
 package api
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/sprint-squads/qa-clickup-api/internal/api/handlers"
 	"github.com/sprint-squads/qa-clickup-api/pkg/application"
-	"github.com/gin-gonic/gin"
 )
 
 // New - creates new instance of gin.Engine
@@ -22,7 +22,7 @@ func New(app application.Application) (*gin.Engine, error) {
 		clickup := v1.Group("/clickup")
 		{
 			clickup.GET("/tags", handler.GetTags)
-			clickup.POST("/create-issue", handler.CreateTask)
+			clickup.POST("/create-issues", handler.CreateTask)
 		}
 
 	}
