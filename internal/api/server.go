@@ -24,7 +24,7 @@ func NewServer() (*Server, error) {
 		return nil, err
 	}
 
-	router, err := New(*app)
+	router, err := NewRouter(*app)
 	if err != nil {
 		return nil, err
 	}

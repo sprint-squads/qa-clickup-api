@@ -2,30 +2,30 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/sprint-squads/qa-clickup-api/internal/api/handlers"
+	webHandler "github.com/sprint-squads/qa-clickup-api/internal/api/handler/http/web"
+	"github.com/sprint-squads/qa-clickup-api/internal/usecase/web/clickup"
 	"github.com/sprint-squads/qa-clickup-api/pkg/application"
 )
 
 // New - creates new instance of gin.Engine
-func New(app application.Application) (*gin.Engine, error) {
+func NewRouter(app application.Application) (*gin.Engine, error) {
 	router := gin.Default()
-	handler := handlers.Get(app)
-
 	v1 := router.Group("/v1")
-	{
-		v1.GET("/ping", func(ctx *gin.Context) {
-			ctx.JSON(200, "pong")
-		})
-
-		v1.GET("/welcome", handler.Welcome)
-
-		clickup := v1.Group("/clickup")
-		{
-			clickup.GET("/tags", handler.GetTags)
-			clickup.POST("/issues", handler.CreateTask)
-		}
-
-	}
+	NewWebRouter(v1, app)
 
 	return router, nil
+}
+
+func NewWebRouter(r *gin.RouterGroup, app application.Application) (web *gin.RouterGroup) {
+	//services
+	clickupService := clickup.NewService(app)
+
+	// group
+	web = r.Group("")
+
+	// routes for get tags, create issues
+	webHandler.NewClickupHandler(web, app, clickupService)
+
+	return
+
 }
