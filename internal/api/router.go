@@ -8,7 +8,7 @@ import (
 )
 
 // New - creates new instance of gin.Engine
-func New(app application.Application) (*gin.Engine, error) {
+func NewRouter(app application.Application) (*gin.Engine, error) {
 	router := gin.Default()
 	v1 := router.Group("/v1")
 	NewWebRouter(v1, app)

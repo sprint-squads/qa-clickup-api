@@ -40,7 +40,6 @@ func UploadToMinio(minioClient *minio.Client, bucketName string, objectName stri
 	if err != nil {
 		return
 	}
-
-	uploadUrl = uploadInfo.Key
+	uploadUrl = uploadInfo.Location
 	return
 }

@@ -36,7 +36,7 @@ func (s *Service) GetTags() (response *presenter.TagsList, err error) {
 	return
 }
 
-func (s *Service) CreateTask(body presenter.ClickUpTask) (response presenter.BaseResponse, err error) {
+func (s *Service) CreateIssue(body presenter.ClickUpTask) (response presenter.BaseResponse, err error) {
 	url := fmt.Sprintf("%v/list/%v/task", s.App.Config.Clickup.Url, s.App.Config.Clickup.ListId)
 	headers := make(map[string]string)
 	headers["Authorization"] = s.App.Config.Clickup.Token
@@ -56,14 +56,14 @@ func (s *Service) CreateTask(body presenter.ClickUpTask) (response presenter.Bas
 	return
 }
 
-func (m *Service) UploadFile(file *multipart.FileHeader) error {
+func (m *Service) UploadFile(file *multipart.FileHeader) (response string, err error) {
 	fileExt := helpers.GetFileExt(file.Filename)
 	randomFileName := helpers.RandStringRunes(16)
-	objectName := time.Now().Format("20060102") + "_" + randomFileName + "." + fileExt
-	contentType := "image/" + fileExt
-	_, err := minio.UploadToMinio(m.App.MinIOClient, m.App.Config.Minio.BucketName, objectName, file, contentType)
+	objectName := "upload-" + time.Now().Format("20060102") + "_" + randomFileName + "." + fileExt
+	contentType := "application/" + fileExt
+	response, err = minio.UploadToMinio(m.App.MinIOClient, m.App.Config.Minio.BucketName, objectName, file, contentType)
 	if err != nil {
-		return err
+		return
 	}
-	return nil
+	return
 }

@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/sprint-squads/qa-clickup-api/internal/api/presenter"
 	"github.com/sprint-squads/qa-clickup-api/internal/usecase/web/clickup"
@@ -22,11 +23,11 @@ func NewClickupHandler(r *gin.RouterGroup, App application.Application, clickupS
 	clickup := r.Group("/clickup")
 	{
 		clickup.GET("/tags", clickupHandler.GetTags)
-		clickup.POST("/issues", clickupHandler.CreateTask)
+		clickup.POST("/issues", clickupHandler.CreateIssue)
 	}
 }
 
-func (h *ClickupHandler) CreateTask(ctx *gin.Context) {
+func (h *ClickupHandler) CreateIssue(ctx *gin.Context) {
 
 	// Parse request body
 	var taskRequest presenter.ClickUpTaskRequest
@@ -43,18 +44,19 @@ func (h *ClickupHandler) CreateTask(ctx *gin.Context) {
 		return
 	}
 
-	//taskRequest.Description = fmt.Sprintf("Email: %v\n\n%v\n\n", taskRequest.Email, taskRequest.Description)
+	taskRequest.Description = fmt.Sprintf("%v\n\nAttachments:\n", taskRequest.Description)
 	if form == nil || form.File == nil || len(form.File) == 0 {
 		// skip uploading file
 	} else {
 		filesList := form.File
 		if len(filesList) > 0 {
-			file := form.File["file"][0]
-
-			errResp := h.ClickupService.UploadFile(file)
-			if errResp != nil {
-				ctx.JSON(400, err)
-				return
+			for _, file := range filesList["file"] {
+				response, err := h.ClickupService.UploadFile(file)
+				if err != nil {
+					ctx.JSON(400, err)
+					return
+				}
+				taskRequest.Description += fmt.Sprintf("%v\n", response)
 			}
 		}
 	}
@@ -67,7 +69,7 @@ func (h *ClickupHandler) CreateTask(ctx *gin.Context) {
 		Tags:                      tags,
 	}
 
-	res, err := h.ClickupService.CreateTask(clickUpTask)
+	res, err := h.ClickupService.CreateIssue(clickUpTask)
 	if err != nil {
 		ctx.JSON(400, err)
 		return

@@ -7,6 +7,6 @@ import (
 
 type UseCase interface {
 	GetTags()(response *presenter.TagsList, err error)
-	CreateTask(body presenter.ClickUpTask) (response presenter.BaseResponse, err error)
-	UploadFile(file *multipart.FileHeader) error
+	CreateIssue(body presenter.ClickUpTask) (response presenter.BaseResponse, err error)
+	UploadFile(file *multipart.FileHeader) (response string, err error)
 }
