@@ -1,10 +1,10 @@
 package application
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/config"
-	minio_client "github.com/Sprint-Squads/qa-clickup-api/pkg/minio"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/services"
 	"github.com/minio/minio-go/v7"
+	"github.com/sprint-squads/qa-clickup-api/pkg/config"
+	minio_client "github.com/sprint-squads/qa-clickup-api/pkg/minio"
+	"github.com/sprint-squads/qa-clickup-api/pkg/services"
 )
 
 // Application model

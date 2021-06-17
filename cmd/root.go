@@ -8,8 +8,8 @@ import (
 
 var RootCmd = &cobra.Command{
 	Use:   "base",
-	Short: "Adaptive Plus",
-	Long:  `Adaptive Plus API`,
+	Short: "QA Clickup",
+	Long:  `QA Clickup API`,
 }
 
 func Execute() {

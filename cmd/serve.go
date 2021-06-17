@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/Sprint-Squads/qa-clickup-api/internal/api"
 	"github.com/spf13/cobra"
+	"github.com/sprint-squads/qa-clickup-api/internal/api"
 	"os"
 )
 

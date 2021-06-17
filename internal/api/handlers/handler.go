@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/internal/manager"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/application"
+	"github.com/sprint-squads/qa-clickup-api/internal/manager"
+	"github.com/sprint-squads/qa-clickup-api/pkg/application"
 )
 
 // Handler model

@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/config"
+	"github.com/sprint-squads/qa-clickup-api/pkg/config"
 )
 
 type Services struct {

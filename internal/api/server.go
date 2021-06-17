@@ -6,7 +6,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/application"
+	"github.com/sprint-squads/qa-clickup-api/pkg/application"
 	"net/http"
 )
 

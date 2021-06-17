@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/model"
 	"github.com/gin-gonic/gin"
+	"github.com/sprint-squads/qa-clickup-api/pkg/model"
 	"strings"
 )
 

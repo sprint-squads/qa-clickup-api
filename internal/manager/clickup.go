@@ -1,9 +1,9 @@
 package manager
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/helpers"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/minio"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/model"
+	"github.com/sprint-squads/qa-clickup-api/pkg/helpers"
+	"github.com/sprint-squads/qa-clickup-api/pkg/minio"
+	"github.com/sprint-squads/qa-clickup-api/pkg/model"
 	"mime/multipart"
 	"time"
 )

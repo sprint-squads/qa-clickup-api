@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/internal/api/handlers"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/application"
+	"github.com/sprint-squads/qa-clickup-api/internal/api/handlers"
+	"github.com/sprint-squads/qa-clickup-api/pkg/application"
 	"github.com/gin-gonic/gin"
 )
 

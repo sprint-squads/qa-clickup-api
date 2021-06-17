@@ -3,8 +3,8 @@ package services
 import (
 	"encoding/json"
 	"fmt"
-	http_v2 "github.com/Sprint-Squads/qa-clickup-api/pkg/http"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/model"
+	http_v2 "github.com/sprint-squads/qa-clickup-api/pkg/http"
+	"github.com/sprint-squads/qa-clickup-api/pkg/model"
 	"net/http"
 )
 

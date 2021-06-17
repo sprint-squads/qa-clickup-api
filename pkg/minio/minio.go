@@ -3,9 +3,9 @@ package minio
 import (
 	"context"
 	"fmt"
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/config"
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/sprint-squads/qa-clickup-api/pkg/config"
 	"mime/multipart"
 )
 

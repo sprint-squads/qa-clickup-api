@@ -1,7 +1,7 @@
 package manager
 
 import (
-	"github.com/Sprint-Squads/qa-clickup-api/pkg/application"
+	"github.com/sprint-squads/qa-clickup-api/pkg/application"
 )
 
 type Manager struct {

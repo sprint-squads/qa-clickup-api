@@ -1,4 +1,4 @@
-module github.com/Sprint-Squads/qa-clickup-api
+module github.com/sprint-squads/qa-clickup-api
 
 go 1.15
 

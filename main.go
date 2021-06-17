@@ -1,6 +1,6 @@
 package main
 
-import "github.com/Sprint-Squads/qa-clickup-api/cmd"
+import "github.com/sprint-squads/qa-clickup-api/cmd"
 
 func main() {
 	cmd.Execute()
