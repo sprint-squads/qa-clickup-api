@@ -1,9 +1,4 @@
-package model
-
-type CDNUploadDirectResponse struct {
-	BaseResponse
-	Data string `json:"data"`
-}
+package presenter
 
 type BaseResponse struct {
 	HTTPStatus int    `json:"-"`

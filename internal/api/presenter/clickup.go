@@ -1,4 +1,4 @@
-package model
+package presenter
 
 type ClickUpTaskRequest struct {
 	Title       string   `form:"title"`
@@ -25,4 +25,9 @@ type Tag struct {
 	TagFG   string `json:"tag_fg"`
 	TagBG   string `json:"tag_bg"`
 	Creator int    `json:"creator"`
+}
+
+type CDNUploadDirectResponse struct {
+	BaseResponse
+	Data string `json:"data"`
 }

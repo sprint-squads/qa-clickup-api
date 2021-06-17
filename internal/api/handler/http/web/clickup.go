@@ -1,15 +1,35 @@
-package handlers
+package http
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/sprint-squads/qa-clickup-api/pkg/model"
+	"github.com/sprint-squads/qa-clickup-api/internal/api/presenter"
+	"github.com/sprint-squads/qa-clickup-api/internal/usecase/web/clickup"
+	"github.com/sprint-squads/qa-clickup-api/pkg/application"
 	"strings"
 )
 
-func (h *Handler) CreateTask(ctx *gin.Context) {
+type ClickupHandler struct {
+	App            application.Application
+	ClickupService clickup.UseCase
+}
+
+func NewClickupHandler(r *gin.RouterGroup, App application.Application, clickupService clickup.UseCase) {
+	clickupHandler := ClickupHandler {
+		App: App,
+		ClickupService: clickupService,
+	}
+
+	clickup := r.Group("/clickup")
+	{
+		clickup.GET("/tags", clickupHandler.GetTags)
+		clickup.POST("/issues", clickupHandler.CreateTask)
+	}
+}
+
+func (h *ClickupHandler) CreateTask(ctx *gin.Context) {
 
 	// Parse request body
-	var taskRequest model.ClickUpTaskRequest
+	var taskRequest presenter.ClickUpTaskRequest
 	err := ctx.Bind(&taskRequest)
 	if err != nil {
 		ctx.JSON(400, err)
@@ -31,7 +51,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		if len(filesList) > 0 {
 			file := form.File["file"][0]
 
-			errResp := h.Manager.UploadFile(file)
+			errResp := h.ClickupService.UploadFile(file)
 			if errResp != nil {
 				ctx.JSON(400, err)
 				return
@@ -39,7 +59,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		}
 	}
 
-	clickUpTask := model.ClickUpTask{
+	clickUpTask := presenter.ClickUpTask{
 		Name:                      taskRequest.Title,
 		Description:               taskRequest.Description,
 		Assignees:                 []int{5723639},
@@ -47,7 +67,7 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 		Tags:                      tags,
 	}
 
-	res, err := h.Manager.CreateTask(clickUpTask)
+	res, err := h.ClickupService.CreateTask(clickUpTask)
 	if err != nil {
 		ctx.JSON(400, err)
 		return
@@ -56,8 +76,8 @@ func (h *Handler) CreateTask(ctx *gin.Context) {
 	ctx.JSON(res.HTTPStatus, res)
 }
 
-func (h *Handler) GetTags(ctx *gin.Context) {
-	res, err := h.Manager.GetTags()
+func (h *ClickupHandler) GetTags(ctx *gin.Context) {
+	res, err := h.ClickupService.GetTags()
 	if err != nil {
 		ctx.JSON(400, err)
 		return
