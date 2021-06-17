@@ -27,4 +27,5 @@ func NewWebRouter(r *gin.RouterGroup, app application.Application) (web *gin.Rou
 	webHandler.NewClickupHandler(web, app, clickupService)
 
 	return
+
 }
