@@ -22,7 +22,7 @@ func New(app application.Application) (*gin.Engine, error) {
 		clickup := v1.Group("/clickup")
 		{
 			clickup.GET("/tags", handler.GetTags)
-			clickup.POST("/create-issues", handler.CreateTask)
+			clickup.POST("/issues", handler.CreateTask)
 		}
 
 	}
